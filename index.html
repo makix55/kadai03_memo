@@ -44,7 +44,7 @@
                 $("#save").text("Save").off("click").on("click", saveData);
             }
 
-            // 1. 新規データを保存する関数
+            // 1. 新規データを保存する
             function saveData() {
                 const key = $("#title").val();
                 const data = {
@@ -53,7 +53,6 @@
                     memo: $("#memo").val()
                 };
 
-                // ローカルストレージに保存
                 localStorage.setItem(key, JSON.stringify(data));
 
                 // 新しいデータをリストに追加
@@ -71,7 +70,7 @@
                 `;
                 $("#list").append(html);
 
-                // 入力フィールドをクリア
+                // 入力した場所をクリア
                 resetInputFields();
             }
 
@@ -98,7 +97,7 @@
                     </li>
                 `);
 
-                // 入力フィールドをクリア
+                // 入力をクリア
                 resetInputFields();
             }
 
@@ -107,13 +106,13 @@
                 const key = $(this).data('key');
                 const data = JSON.parse(localStorage.getItem(key));
 
-                // フィールドに既存のデータを表示
+                // 既存のデータを表示
                 $("#title").val(key);
                 $("#price").val(data.price);
                 $("#store").val(data.store);
                 $("#memo").val(data.memo);
 
-                // 保存ボタンを「更新」に変え、クリックイベントを更新用に変更
+                // 保存ボタンを「更新」に変える
                 $("#save").text("Update").off("click").on("click", function () {
                     updateData(key);
                 });
@@ -123,12 +122,11 @@
             $("#list").on('click', '.delete', function () {
                 const key = $(this).data('key');
 
-                // ローカルストレージから削除し、DOMからも削除
                 localStorage.removeItem(key);
                 $(`#${key}`).remove();
             });
 
-            // 5. Clear ボタンのクリックイベント
+            // 5. Clear ボタンのクリック
             $("#clear").on('click', function () {
                 localStorage.clear();
                 $("#list").empty();
